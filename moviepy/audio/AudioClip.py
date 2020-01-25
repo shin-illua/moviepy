@@ -188,10 +188,13 @@ class AudioClip(Clip):
 
         """
         if not fps:
-            if not self.fps:
+            try:
+                if not self.fps:
+                    fps = 44100
+                else:
+                    fps = self.fps
+            catch AttributeError:
                 fps = 44100
-            else:
-                fps = self.fps
 
         if codec is None:
             name, ext = os.path.splitext(os.path.basename(filename))
